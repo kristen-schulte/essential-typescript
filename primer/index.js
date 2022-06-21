@@ -26,6 +26,7 @@ let boots = {
   },
 };
 
+hat.writeDetails = hat.writeDetails.bind(hat);
 hat.writeDetails();
 hat.price = 120;
 hat.writeDetails();
