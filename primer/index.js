@@ -1,5 +1,6 @@
 class Product {
   constructor(name, price) {
+    this.id = Symbol();
     this.name = name;
     this.price = price;
   }
@@ -9,67 +10,53 @@ class Product {
   }
 }
 
-class GiftPack {
-  constructor(name, prod1, prod2, prod3) {
-    this.name = name;
-    this.prod1 = prod1;
-    this.prod2 = prod2;
-    this.prod3 = prod3;
-  }
+let product = new Product("Hat", 100);
+let productArray = [];
+let productSet = new Set();
 
-  getTotalPrice() {
-    return [this.prod1, this.prod2, this.prod3].reduce(
-      (total, p) => total + p.price,
-      0
-    );
-  }
-
-  *[Symbol.iterator]() {
-    yield this.prod1;
-    yield this.prod2;
-    yield this.prod3;
-  }
+for (let i = 0; i < 5; i++) {
+  productArray.push(product);
+  productSet.add(product);
 }
 
-let winter = new GiftPack(
-  "winter",
-  new Product("Hat", 100),
-  new Product("Boots", 80),
-  new Product("Gloves", 23)
-);
+console.log(`Array length: ${productArray.length}`);
+console.log(`Set size: ${productSet.size}`);
 
-console.log(`Total price: ${winter.getTotalPrice()}`);
-[...winter].forEach((p) => console.log(`Product: ${p}`));
-
-// function* createProductIterator() {
-//   yield new Product("Hat", 100);
-//   yield new Product("Boots", 100);
-//   yield new Product("Umbrella", 23);
-// }
-
-// [...createProductIterator()].forEach((p) => console.log(p.toString()));
-
-// class TaxedProduct extends Product {
-//   constructor(name, price, taxRate = 1.2) {
-//     super(name, price);
-//     this.taxRate = taxRate;
-//   }
-
-//   getPriceIncTax() {
-//     return Number(this.price) * this.taxRate;
-//   }
-
-//   toString() {
-//     let chainResult = super.toString();
-//     return `${chainResult}, Tax: ${this.getPriceIncTax()}`;
-//   }
-
-//   static process(...products) {
-//     products.forEach((p) => console.log(p.toString()));
+// class Supplier {
+//   constructor(name, productids) {
+//     this.name - name;
+//     this.productids = productids;
 //   }
 // }
 
-// TaxedProduct.process(
-//   new TaxedProduct("Hat", 100, 1.2),
-//   new TaxedProduct("Boots", 100)
+// let acmeProducts = [new Product("Hat", 100), new Product("Boots", 100)];
+// let zoomProducts = [new Product("Hat", 100), new Product("Boots", 100)];
+
+// let products = new Map();
+// [...acmeProducts, ...zoomProducts].forEach((p) => products.set(p.id, p));
+
+// let suppliers = new Map();
+// suppliers.set(
+//   "acme",
+//   new Supplier(
+//     "Acme Co",
+//     acmeProducts.map((p) => p.id)
+//   )
 // );
+// suppliers.set(
+//   "zoom",
+//   new Supplier(
+//     "Zoom Shoes",
+//     zoomProducts.map((p) => p.id)
+//   )
+// );
+
+// suppliers
+//   .get("acme")
+//   .productids.forEach((id) => console.log(`Name: ${products.get(id).name}`));
+
+// let data = new Map();
+// data.set("hat", new Product("Hat", 100));
+// data.set("boots", new Product("Boots", 100));
+
+// [...data.keys()].forEach((key) => console.log(data.get(key).toString()));
