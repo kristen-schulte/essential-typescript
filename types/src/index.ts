@@ -1,16 +1,15 @@
-function calculateTax(amount: number, discount: number = 0, ...extraFees: number[]): number {
-    return (amount * 1.2) - discount
-        + extraFees.reduce((total, val) => total + val, 0);
+function calculateTax(amount: number, discount: number): number;
+function calculateTax(amount: null, discount: number): null;
+function calculateTax(amount: number | null, discount: number = 0, ...extraFees: number[]): number | null {
+    if (amount != null) {
+        return (amount * 1.2) - discount
+            + extraFees.reduce((total, val) => total + val, 0);
+    }
+    return null;
 }
 
-let taxValue = calculateTax(100, 0);
-console.log(`2 args: ${taxValue}`);
+function writeValue(label: string, value: number): void {
+    console.log(`${label}: ${value}`);
+}
 
-// taxValue = calculateTax(100);
-// console.log(`1 arg: ${taxValue}`);
-
-// taxValue = calculateTax(100, 10, 20);
-// console.log(`3 args: ${taxValue}`);
-
-// taxValue = calculateTax(100, 10, 20, 1, 30, 7);
-// console.log(`6 args: ${taxValue}`);
+writeValue("Tax value", calculateTax(100, 0));
