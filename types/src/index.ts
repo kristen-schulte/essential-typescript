@@ -1,24 +1,9 @@
-function calculateTax(amount: number, format: boolean): string | number | null {
-    if (amount === 0) {
-        return null;
-    }
-
-    const calcAmount = amount * 1.2;
-    return format ? `$${calcAmount.toFixed(2)}` : calcAmount;
+function calculateTax(amount, discount?) {
+    return (amount * 1.2) - (discount || 0);
 }
 
-let taxValue = calculateTax(0, false)!;
+let taxValue = calculateTax(100, 0);
+console.log(`Total Amount: ${taxValue}`);
 
-if (taxValue !== null) {
-    switch (typeof taxValue) {
-        case "number":
-            console.log(`Number Value: ${taxValue.toFixed(2)}`);
-            break;
-        case "string":
-            console.log(`String Value: ${taxValue.charAt(0)}`);
-            break
-    }
-} else {
-    console.log("Value is not a string or a number");
-
-}
+taxValue = calculateTax(100);
+console.log(`Total Amount: ${taxValue}`);
