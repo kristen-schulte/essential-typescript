@@ -6,10 +6,7 @@ let printMessage = (msg: string): void => {
 
 printMessage("Hello, TypeScript");
 
+debugger; // eslint-disable-line no-debugger
+
 let total = sum(100, 200, 300);
 console.log(`Total: ${total}`);
-
-// let data = new Map();
-// data.set("Bob", "London");
-// data.set("Alice", "Paris");
-// data.forEach((val, key) => console.log(`${key} lives in ${val}`));
