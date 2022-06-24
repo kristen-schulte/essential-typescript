@@ -2,21 +2,38 @@ declare enum Feature {
     Waterproof = 0,
     Insulated = 1
 }
+declare type Product = {
+    id: number;
+    name: string;
+    price?: number;
+};
+declare type Person = {
+    id: string;
+    name: string;
+    city: string;
+};
+declare type UnionType = {
+    id: number | string;
+    name: string;
+};
 declare let hat: {
+    id: number;
     name: string;
     price: number;
 };
 declare let gloves: {
+    id: number;
     name: string;
     price: number;
 };
 declare let umbrella: {
+    id: number;
     name: string;
     price: number;
-    hasFeature: (feature: any) => boolean;
 };
-declare let products: {
+declare let bob: {
+    id: string;
     name: string;
-    price?: number;
-    hasFeature?(Feature: any): boolean;
-}[];
+    city: string;
+};
+declare let dataItems: (Product | Person)[];
