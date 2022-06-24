@@ -1,22 +1,15 @@
-interface Person {
+interface Product {
     name: string;
-    getDetails(): string;
-    dogName?: string;
-    getDogDetails?(): string;
+    price: number;
 }
-declare abstract class AbstractDogOwner implements Person {
-    abstract name: string;
-    abstract dogName?: string;
-    abstract getDetails(): string;
-    getDogDetails(): string;
-}
-declare class DogOwningCustomer extends AbstractDogOwner {
-    readonly id: string;
+declare class SportsProduct implements Product {
     name: string;
-    city: string;
-    creditLimit: number;
-    dogName: any;
-    constructor(id: string, name: string, city: string, creditLimit: number, dogName: any);
-    getDetails(): string;
+    category: string;
+    price: number;
+    constructor(name: string, category: string, price: number);
 }
-declare let alice: DogOwningCustomer;
+declare class ProductGroup {
+    constructor(...initialProducts: [string, Product][]);
+    [propertyName: string]: Product;
+}
+declare let group: ProductGroup;
