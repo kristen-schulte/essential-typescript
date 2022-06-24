@@ -1,64 +1,44 @@
-// enum Feature { Waterproof, Insulated }
-
 type Person = {
     id: string,
     name: string,
     city: string,
-    contact: number
+    getContact(field: number): number
 }
 
 type Employee = {
     id: string,
     company: string,
     dept: string,
-    contact: string
+    getContact(field: string): string
 }
 
 type EmployedPerson = Person & Employee;
 
-let typeTest = ({} as EmployedPerson).contact;
+let person1: EmployedPerson = {
+    id: "bsmith",
+    name: "Bob Smith",
+    city: "London",
+    company: "Acme Co",
+    dept: "Sales",
+    getContact(field: string | number): any {
+        return typeof field === "string" ? "Alice" : 6512345643
+    }
+}
 
-// function correlateData(peopleData: Person[], staff: Employee[]): EmployedPerson[] {
-//     const defaults = { company: "None", dept: "None" };
-//     return peopleData.map(p => ({
-//         ...p,
-//         ...staff.find(e => e.id === p.id) || { ...defaults, id: p.id }
-//     }))
-// }
+let person2: EmployedPerson = {
+    id: "dpeters",
+    name: "Dora Peters",
+    city: "New York",
+    company: "Acme Co",
+    dept: "Development",
+    getContact(field: string | number): any {
+        return typeof field === "string" ? "Alice" : 6512345643
+    }
+}
 
-// let people: Person[] = [
-//     { id: "bsmith", name: "Bob Smith", city: "London" },
-//     { id: "ajones", name: "Alice Jones", city: "Paris" },
-//     { id: "dpeters", name: "Dora Peters", city: "New York" }];
+let typetest = person1.getContact;
+let stringParamTypeTest = person1.getContact("Alice");
+let numberParamTypeTest = person1.getContact(12);
 
-// let employees: Employee[] = [
-//     { id: "bsmith", company: "Acme Co", dept: "Sales" },
-//     { id: "dpeters", company: "Acme Co", dept: "Development" }
-// ];
-
-// let dataItems: EmployedPerson[] = correlateData(people, employees);
-
-// function writePerson(per: Person): void {
-//     console.log(`Person: ${per.id}, ${per.name}, ${per.city}`);
-// }
-
-// function writeEmployee(emp: Employee): void {
-//     console.log(`Employee: ${emp.id}, ${emp.company}, ${emp.dept}`);
-// }
-
-// dataItems.forEach(item => {
-//     writePerson(item);
-//     writeEmployee(item);
-// })
-
-// function isPerson(testObj: any): testObj is Person {
-//     return testObj.city !== undefined;
-// }
-
-// dataItems.forEach(item => {
-//     if (isPerson(item)) {
-//         console.log(`Person: ${item.name}: ${item.city}`)
-//     } else {
-//         console.log(`Product: ${item.name}: ${item.price}`)
-//     }
-// });
+console.log(`Contact: ${person1.getContact("Alice")}`);
+console.log(`Contact: ${person1.getContact(12)}`);

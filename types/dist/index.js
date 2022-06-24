@@ -1,38 +1,25 @@
-// enum Feature { Waterproof, Insulated }
-let typeTest = {}.contact;
-// function correlateData(peopleData: Person[], staff: Employee[]): EmployedPerson[] {
-//     const defaults = { company: "None", dept: "None" };
-//     return peopleData.map(p => ({
-//         ...p,
-//         ...staff.find(e => e.id === p.id) || { ...defaults, id: p.id }
-//     }))
-// }
-// let people: Person[] = [
-//     { id: "bsmith", name: "Bob Smith", city: "London" },
-//     { id: "ajones", name: "Alice Jones", city: "Paris" },
-//     { id: "dpeters", name: "Dora Peters", city: "New York" }];
-// let employees: Employee[] = [
-//     { id: "bsmith", company: "Acme Co", dept: "Sales" },
-//     { id: "dpeters", company: "Acme Co", dept: "Development" }
-// ];
-// let dataItems: EmployedPerson[] = correlateData(people, employees);
-// function writePerson(per: Person): void {
-//     console.log(`Person: ${per.id}, ${per.name}, ${per.city}`);
-// }
-// function writeEmployee(emp: Employee): void {
-//     console.log(`Employee: ${emp.id}, ${emp.company}, ${emp.dept}`);
-// }
-// dataItems.forEach(item => {
-//     writePerson(item);
-//     writeEmployee(item);
-// })
-// function isPerson(testObj: any): testObj is Person {
-//     return testObj.city !== undefined;
-// }
-// dataItems.forEach(item => {
-//     if (isPerson(item)) {
-//         console.log(`Person: ${item.name}: ${item.city}`)
-//     } else {
-//         console.log(`Product: ${item.name}: ${item.price}`)
-//     }
-// });
+let person1 = {
+    id: "bsmith",
+    name: "Bob Smith",
+    city: "London",
+    company: "Acme Co",
+    dept: "Sales",
+    getContact(field) {
+        return typeof field === "string" ? "Alice" : 6512345643;
+    }
+};
+let person2 = {
+    id: "dpeters",
+    name: "Dora Peters",
+    city: "New York",
+    company: "Acme Co",
+    dept: "Development",
+    getContact(field) {
+        return typeof field === "string" ? "Alice" : 6512345643;
+    }
+};
+let typetest = person1.getContact;
+let stringParamTypeTest = person1.getContact("Alice");
+let numberParamTypeTest = person1.getContact(12);
+console.log(`Contact: ${person1.getContact("Alice")}`);
+console.log(`Contact: ${person1.getContact(12)}`);
