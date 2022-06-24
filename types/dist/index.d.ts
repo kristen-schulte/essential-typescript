@@ -1,8 +1,22 @@
-declare function calcluatePrice(quantity: 1 | 2, price: number): number;
-declare let total: number;
-declare type numVals = 1 | 2 | 3 | 4;
-declare function getRandomValue(): numVals;
-declare type cities = "London" | "Paris" | "Chicago";
-declare type cityResponse = `City: ${cities}`;
-declare function getCityString(city: cities): cityResponse;
-declare let str: "City: London" | "City: Paris" | "City: Chicago";
+declare enum Feature {
+    Waterproof = 0,
+    Insulated = 1
+}
+declare let hat: {
+    name: string;
+    price: number;
+};
+declare let gloves: {
+    name: string;
+    price: number;
+};
+declare let umbrella: {
+    name: string;
+    price: number;
+    hasFeature: (feature: any) => boolean;
+};
+declare let products: {
+    name: string;
+    price?: number;
+    hasFeature?(Feature: any): boolean;
+}[];

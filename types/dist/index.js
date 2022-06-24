@@ -1,13 +1,11 @@
-function calcluatePrice(quantity, price) {
-    return quantity * price;
-}
-let total = calcluatePrice(2, 19.99);
-console.log(`Price: ${total}`);
-function getRandomValue() {
-    return Math.floor(Math.random() * 4) + 1;
-}
-function getCityString(city) {
-    return `City: ${city}`;
-}
-let str = getCityString("London");
-console.log(str);
+var Feature;
+(function (Feature) {
+    Feature[Feature["Waterproof"] = 0] = "Waterproof";
+    Feature[Feature["Insulated"] = 1] = "Insulated";
+})(Feature || (Feature = {}));
+let hat = { name: "Hat", price: 100 };
+let gloves = { name: "Gloves", price: 75 };
+let umbrella = { name: "Umbrella", price: 30, hasFeature: (feature) => feature === Feature.Waterproof };
+let products = [hat, gloves, umbrella];
+products.forEach(prod => console.log(`${prod.name}: ${prod.price} ` +
+    `Waterproof: ${prod.hasFeature ? prod.hasFeature(Feature.Waterproof) : "false"}`));

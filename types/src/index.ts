@@ -1,23 +1,10 @@
-function calcluatePrice(quantity: 1 | 2, price: number): number {
-    return quantity * price;
-}
+enum Feature { Waterproof, Insulated }
 
-let total = calcluatePrice(2, 19.99);
-console.log(`Price: ${total}`);
+let hat = { name: "Hat", price: 100 };
+let gloves = { name: "Gloves", price: 75 };
+let umbrella = { name: "Umbrella", price: 30, hasFeature: (feature) => feature === Feature.Waterproof };
 
-type numVals = 1 | 2 | 3 | 4;
+let products: { name: string, price?: number, hasFeature?(Feature): boolean }[] = [hat, gloves, umbrella];
 
-function getRandomValue(): numVals {
-    return Math.floor(Math.random() * 4) + 1 as numVals;
-}
-
-type cities = "London" | "Paris" | "Chicago";
-
-type cityResponse = `City: ${cities}`;
-
-function getCityString(city: cities): cityResponse {
-    return `City: ${city}` as cityResponse;
-}
-
-let str = getCityString("London");
-console.log(str);
+products.forEach(prod => console.log(`${prod.name}: ${prod.price} ` +
+    `Waterproof: ${prod.hasFeature ? prod.hasFeature(Feature.Waterproof) : "false"}`));
