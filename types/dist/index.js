@@ -1,32 +1,55 @@
-class Employee {
+class Person {
+    constructor(id, name, city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+}
+class Employee extends Person {
     constructor(id, name, dept, city) {
-        this.writeDept = function () {
-            console.log(`${this.name} works in ${this.dept}`);
-        };
+        super(id, name, city);
         this.id = id;
         this.name = name;
         this.dept = dept;
         this.city = city;
+        this.writeDept = function () {
+            console.log(`${this.name} works in ${this.dept}`);
+        };
     }
     ;
 }
-let salesEmployee = new Employee("fvega", "Fidel Vega", "Sales", "Paris");
-let data = [{
-        id: "bsmith",
-        name: "Bob Smith",
-        city: "London"
-    }, {
-        id: "dpeters",
-        name: "Dora Peters",
-        city: "New York"
-    }, {
-        id: "ajones", name: "Alice Jones", city: "Paris"
-    }, salesEmployee];
+class Customer extends Person {
+    constructor(id, name, city, creditLimit) {
+        super(id, name, city);
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.creditLimit = creditLimit;
+    }
+}
+class Supplier extends Person {
+    constructor(id, name, city, companyName) {
+        super(id, name, city);
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.companyName = companyName;
+    }
+}
+let data = [
+    new Employee("fvega", "Fidel Vega", "Sales", "Paris"),
+    new Customer("ajones", "Alice Jones", "London", 500)
+];
+data.push(new Supplier("dpeters", "Dora Peters", "New York", "Acme"));
 data.forEach(item => {
+    console.log(`Person: ${item.name}, ${item.city}`);
     if (item instanceof Employee) {
         item.writeDept();
     }
-    else {
-        console.log(`${item.id} ${item.name}, ${item.city}`);
+    else if (item instanceof Customer) {
+        console.log(`Customer ${item.name} has ${item.creditLimit} limit`);
+    }
+    else if (item instanceof Supplier) {
+        console.log(`Supplier ${item.name} works for ${item.companyName}`);
     }
 });
