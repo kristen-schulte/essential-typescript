@@ -1,25 +1,29 @@
-let person1 = {
-    id: "bsmith",
-    name: "Bob Smith",
-    city: "London",
-    company: "Acme Co",
-    dept: "Sales",
-    getContact(field) {
-        return typeof field === "string" ? "Alice" : 6512345643;
-    }
+let Employee = function (id, name, dept, city) {
+    this.id = id;
+    this.name = name;
+    this.dept = dept;
+    this.city = city;
 };
-let person2 = {
-    id: "dpeters",
-    name: "Dora Peters",
-    city: "New York",
-    company: "Acme Co",
-    dept: "Development",
-    getContact(field) {
-        return typeof field === "string" ? "Alice" : 6512345643;
-    }
+Employee.prototype.writeDept = function () {
+    console.log(`${this.name} works in ${this.dept}`);
 };
-let typetest = person1.getContact;
-let stringParamTypeTest = person1.getContact("Alice");
-let numberParamTypeTest = person1.getContact(12);
-console.log(`Contact: ${person1.getContact("Alice")}`);
-console.log(`Contact: ${person1.getContact(12)}`);
+let salesEmployee = new Employee("fvega", "Fidel Vega", "Sales", "Paris");
+let data = [{
+        id: "bsmith",
+        name: "Bob Smith",
+        city: "London"
+    }, {
+        id: "dpeters",
+        name: "Dora Peters",
+        city: "New York"
+    }, {
+        id: "ajones", name: "Alice Jones", city: "Paris"
+    }, salesEmployee];
+data.forEach(item => {
+    if ("dept" in item) {
+        item.writeDept();
+    }
+    else {
+        console.log(`${item.id} ${item.name}, ${item.city}`);
+    }
+});
