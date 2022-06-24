@@ -1,33 +1,22 @@
-declare abstract class Person {
-    id: string;
+interface Person {
     name: string;
-    city: string;
-    constructor(id: string, name: string, city: string);
     getDetails(): string;
-    abstract getSpecificDetails(): string;
+    dogName?: string;
+    getDogDetails?(): string;
 }
-declare class Employee extends Person {
-    readonly id: string;
-    name: string;
-    private dept;
-    city: string;
-    constructor(id: string, name: string, dept: string, city: string);
-    getSpecificDetails(): string;
+declare abstract class AbstractDogOwner implements Person {
+    abstract name: string;
+    abstract dogName?: string;
+    abstract getDetails(): string;
+    getDogDetails(): string;
 }
-declare class Customer {
+declare class DogOwningCustomer extends AbstractDogOwner {
     readonly id: string;
     name: string;
     city: string;
     creditLimit: number;
-    constructor(id: string, name: string, city: string, creditLimit: number);
-    getSpecificDetails(): string;
+    dogName: any;
+    constructor(id: string, name: string, city: string, creditLimit: number, dogName: any);
+    getDetails(): string;
 }
-declare class Supplier extends Person {
-    readonly id: string;
-    name: string;
-    city: string;
-    companyName: string;
-    constructor(id: string, name: string, city: string, companyName: string);
-    getSpecificDetails(): string;
-}
-declare let data: (Person | Customer)[];
+declare let alice: DogOwningCustomer;

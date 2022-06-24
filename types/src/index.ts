@@ -1,68 +1,78 @@
-abstract class Person {
-    constructor(
-        public id: string,
+interface Person {
+    name: string;
+    getDetails(): string;
+    dogName?: string;
+    getDogDetails?(): string;
+}
+
+abstract class AbstractDogOwner implements Person {
+    abstract name: string;
+    abstract dogName?: string;
+
+    abstract getDetails(): string;
+
+    getDogDetails(): string {
+        if (this.dogName) {
+            return `${this.name} has a dog called ${this.dogName}`;
+        }
+    }
+}
+
+class DogOwningCustomer extends AbstractDogOwner {
+    constructor(public readonly id: string,
         public name: string,
-        public city: string) { }
+        public city: string,
+        public creditLimit: number, public dogName) {
+        super();
+    }
 
     getDetails(): string {
-        return `${this.name}, ${this.getSpecificDetails()}`;
-    }
-
-    abstract getSpecificDetails(): string;
-}
-
-class Employee extends Person {
-    constructor(
-        public readonly id: string,
-        public name: string,
-        private dept: string,
-        public city: string) {
-        super(id, name, city);
-    };
-
-    getSpecificDetails(): string {
-        return `works in ${this.dept}`;
+        return `${this.name} has ${this.creditLimit} limit`;
     }
 }
 
-class Customer {
-    constructor(
-        public readonly id: string,
-        public name: string,
-        public city: string,
-        public creditLimit: number) {
-    }
+// class Employee implements Person {
+//     constructor(
+//         public readonly id: string,
+//         public name: string,
+//         private dept: string,
+//         public city: string) {
+//     };
 
-    getSpecificDetails(): string {
-        return `has ${this.creditLimit} limit`;
-    }
+//     getDetails(): string {
+//         return `${this.name} works in ${this.dept}`;
+//     }
+// }
+
+// class Customer implements Person {
+//     constructor(
+//         public readonly id: string,
+//         public name: string,
+//         public city: string,
+//         public creditLimit: number,
+//         public dogName) {
+//     }
+
+//     getDetails(): string {
+//         return `${this.name} has ${this.creditLimit} limit`;
+//     }
+
+//     getDogDetails(): string {
+//         return `${this.name} has a dog named ${this.dogName}`;
+//     }
+// }
+
+let alice = new DogOwningCustomer("ajones", "Alice Jones", "London", 500, "Fido");
+if (alice.getDogDetails) {
+    console.log(alice.getDogDetails());
 }
 
-class Supplier extends Person {
-    constructor(
-        public readonly id: string,
-        public name: string,
-        public city: string,
-        public companyName: string) {
-        super(id, name, city);
-    }
+// let data: Person[] = [
+//     new Employee("fvega", "Fidel Vega", "Sales", "Paris"), alice];
 
-    getSpecificDetails(): string {
-        return `works for ${this.companyName}`;
-    }
-}
-
-let data: (Person | Customer)[] = [
-    new Employee("fvega", "Fidel Vega", "Sales", "Paris"),
-    new Customer("ajones", "Alice Jones", "London", 500
-    )];
-
-data.push(new Supplier("dpeters", "Dora Peters", "New York", "Acme"));
-
-data.forEach(item => {
-    if (item instanceof Person) {
-        console.log(item.getDetails());
-    } else {
-        console.log(`Customer: ${item.name}`);
-    }
-});
+// data.forEach(item => {
+//     console.log(item.getDetails());
+//     if (item.getDogDetails) {
+//         console.log(item.getDogDetails());
+//     }
+// });
