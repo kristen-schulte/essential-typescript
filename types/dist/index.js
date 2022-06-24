@@ -1,26 +1,30 @@
-function calculateTax(amount) {
-    return amount * 1.2;
+function calcluatePrice(quantity, price) {
+    return quantity * price;
 }
-function writePrice(product, price) {
-    console.log(`Price for ${product}: $${price.toFixed(2)}`);
+let total = calcluatePrice(2, 19.99);
+console.log(`Price: ${total}`);
+function getRandomValue() {
+    return Math.floor(Math.random() * 4) + 1;
 }
-var Product;
-(function (Product) {
-    Product[Product["Hat"] = 0] = "Hat";
-    Product[Product["Gloves"] = 1] = "Gloves";
-    Product[Product["Umbrella"] = 2] = "Umbrella";
-})(Product || (Product = {}));
-let products = [[Product.Hat, 100], [Product.Gloves, 75]];
-products.forEach((prod) => {
-    switch (prod[0]) {
-        case Product.Hat:
-            writePrice("Hat", calculateTax(prod[1]));
-            break;
-        case Product.Gloves:
-            writePrice("Gloves", calculateTax(prod[1]));
-            break;
-        case Product.Umbrella:
-            writePrice("Umbrella", calculateTax(prod[1]));
-            break;
+var City;
+(function (City) {
+    City["London"] = "LON";
+    City["Paris"] = "PAR";
+    City["Chicago"] = "CHI";
+})(City || (City = {}));
+function getMixedValue(input) {
+    switch (input) {
+        case 1:
+            return 1;
+        case 2:
+            return "Hello";
+        case 3:
+            return true;
+        case 4:
+            return City.London;
     }
-});
+}
+let first = getMixedValue(1);
+let second = getMixedValue(2);
+let third = getMixedValue(4);
+console.log(`${first}, ${second}, ${third}`);
