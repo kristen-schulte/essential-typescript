@@ -4,9 +4,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    // "noImplicitAny": true,
+    "noImplicitAny": true,
     "strictNullChecks": true,
-    // "noImplicitReturns": true
+    "noImplicitReturns": true,
     "suppressExcessPropertyErrors": true
   }
 }

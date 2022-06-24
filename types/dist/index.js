@@ -1,18 +1,38 @@
-var Feature;
-(function (Feature) {
-    Feature[Feature["Waterproof"] = 0] = "Waterproof";
-    Feature[Feature["Insulated"] = 1] = "Insulated";
-})(Feature || (Feature = {}));
-let hat = { id: 1, name: "Hat", price: 100 };
-let gloves = { id: 2, name: "Gloves", price: 75 };
-let umbrella = { id: 3, name: "Umbrella", price: 30 };
-let bob = { id: "bsmith", name: "Bob", city: "London" };
-let dataItems = [hat, gloves, umbrella, bob];
-dataItems.forEach(item => {
-    if ("city" in item) {
-        console.log(`Person: ${item.name}: ${item.city}`);
-    }
-    else {
-        console.log(`Product: ${item.name}: ${item.price}`);
-    }
-});
+// enum Feature { Waterproof, Insulated }
+let typeTest = {}.contact;
+// function correlateData(peopleData: Person[], staff: Employee[]): EmployedPerson[] {
+//     const defaults = { company: "None", dept: "None" };
+//     return peopleData.map(p => ({
+//         ...p,
+//         ...staff.find(e => e.id === p.id) || { ...defaults, id: p.id }
+//     }))
+// }
+// let people: Person[] = [
+//     { id: "bsmith", name: "Bob Smith", city: "London" },
+//     { id: "ajones", name: "Alice Jones", city: "Paris" },
+//     { id: "dpeters", name: "Dora Peters", city: "New York" }];
+// let employees: Employee[] = [
+//     { id: "bsmith", company: "Acme Co", dept: "Sales" },
+//     { id: "dpeters", company: "Acme Co", dept: "Development" }
+// ];
+// let dataItems: EmployedPerson[] = correlateData(people, employees);
+// function writePerson(per: Person): void {
+//     console.log(`Person: ${per.id}, ${per.name}, ${per.city}`);
+// }
+// function writeEmployee(emp: Employee): void {
+//     console.log(`Employee: ${emp.id}, ${emp.company}, ${emp.dept}`);
+// }
+// dataItems.forEach(item => {
+//     writePerson(item);
+//     writeEmployee(item);
+// })
+// function isPerson(testObj: any): testObj is Person {
+//     return testObj.city !== undefined;
+// }
+// dataItems.forEach(item => {
+//     if (isPerson(item)) {
+//         console.log(`Person: ${item.name}: ${item.city}`)
+//     } else {
+//         console.log(`Product: ${item.name}: ${item.price}`)
+//     }
+// });

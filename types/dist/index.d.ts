@@ -1,39 +1,14 @@
-declare enum Feature {
-    Waterproof = 0,
-    Insulated = 1
-}
-declare type Product = {
-    id: number;
-    name: string;
-    price?: number;
-};
 declare type Person = {
     id: string;
     name: string;
     city: string;
+    contact: number;
 };
-declare type UnionType = {
-    id: number | string;
-    name: string;
-};
-declare let hat: {
-    id: number;
-    name: string;
-    price: number;
-};
-declare let gloves: {
-    id: number;
-    name: string;
-    price: number;
-};
-declare let umbrella: {
-    id: number;
-    name: string;
-    price: number;
-};
-declare let bob: {
+declare type Employee = {
     id: string;
-    name: string;
-    city: string;
+    company: string;
+    dept: string;
+    contact: string;
 };
-declare let dataItems: (Product | Person)[];
+declare type EmployedPerson = Person & Employee;
+declare let typeTest: never;
