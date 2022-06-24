@@ -1,5 +1,5 @@
-declare function check(expression: boolean): asserts expression;
-declare function checkNumber(val: any): asserts val is number;
-declare function calculateTax(amount: number, discount: number): number;
-declare function calculateTax(amount: null, discount: number): null;
-declare function writeValue(label: string, value: number): void;
+declare function calculateTax(amount: number): number;
+declare function writePrice(product: string, price: number): void;
+declare let hatPrice: number;
+declare let glovesPrice: number;
+declare let umbrellaPrice: number;

@@ -1,26 +1,15 @@
-function check(expression: boolean): asserts expression {
-    if (!expression) {
-        throw new Error("Expression is false");
-    }
+function calculateTax(amount: number): number {
+    return amount * 1.2;
 }
 
-function checkNumber(val: any): asserts val is number {
-    if (typeof val != "number") {
-        throw new Error("Not a number");
-    }
+function writePrice(product: string, price: number): void {
+    console.log(`Price for ${product}: $${price.toFixed(2)}`);
 }
 
-function calculateTax(amount: number, discount: number): number;
-function calculateTax(amount: null, discount: number): null;
-function calculateTax(amount: number | null, discount: number = 0, ...extraFees: number[]): number | null {
-    //check(typeof amount == "number");
-    checkNumber(amount);
-    return (amount * 1.2) - discount
-        + extraFees.reduce((total, val) => total + val, 0);
-}
+let hatPrice = 100;
+let glovesPrice = 75;
+let umbrellaPrice = 42;
 
-function writeValue(label: string, value: number): void {
-    console.log(`${label}: ${value}`);
-}
-
-writeValue("Tax value", calculateTax(100, 0));
+writePrice("Hat", calculateTax(hatPrice));
+writePrice("Gloves", calculateTax(glovesPrice));
+writePrice("Umbrella", calculateTax(umbrellaPrice));
