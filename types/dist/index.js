@@ -1,12 +1,15 @@
-let Employee = function (id, name, dept, city) {
-    this.id = id;
-    this.name = name;
-    this.dept = dept;
-    this.city = city;
-};
-Employee.prototype.writeDept = function () {
-    console.log(`${this.name} works in ${this.dept}`);
-};
+class Employee {
+    constructor(id, name, dept, city) {
+        this.writeDept = function () {
+            console.log(`${this.name} works in ${this.dept}`);
+        };
+        this.id = id;
+        this.name = name;
+        this.dept = dept;
+        this.city = city;
+    }
+    ;
+}
 let salesEmployee = new Employee("fvega", "Fidel Vega", "Sales", "Paris");
 let data = [{
         id: "bsmith",
@@ -20,7 +23,7 @@ let data = [{
         id: "ajones", name: "Alice Jones", city: "Paris"
     }, salesEmployee];
 data.forEach(item => {
-    if ("dept" in item) {
+    if (item instanceof Employee) {
         item.writeDept();
     }
     else {
