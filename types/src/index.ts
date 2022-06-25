@@ -1,18 +1,26 @@
-import { Person, Product, City } from "./dataTypes";
+import { Person, Product, City, Employee } from "./dataTypes";
 
-let people = [new Person("Bob Smith", "London"),
-new Person("Dora Peters", "New York")];
-
-let products = [new Product("Running Shoes", 100),
-new Product("Hat", 25)];
-
+let people = [new Person("Bob Smith", "London"), new Person("Dora Peters", "New York")];
+let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
 let cities = [new City("London", 8136000), new City("Paris", 2141000)];
+let employees = [new Employee("Bob Smith", "Sales"), new Employee("Alice Jones", "Sales")];
 
 class DataCollection<T extends { name: string }> {
     private items: T[] = [];
 
     constructor(initialItems: T[]) {
         this.items.push(...initialItems);
+    }
+
+    collate<U>(targetData: U[], itemProp: string, targetProp: string): (T & U)[] {
+        let results = [];
+        this.items.forEach(item => {
+            let match = targetData.find(d => d[targetProp] === item[itemProp]);
+            if (match !== undefined) {
+                results.push({ ...match, ...item });
+            }
+        });
+        return results;
     }
 
     add(newItem: T) {
@@ -29,14 +37,9 @@ class DataCollection<T extends { name: string }> {
 }
 
 let peopleData = new DataCollection<Person>(people);
-let firstPerson = peopleData.getItem(0);
-console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);
-console.log(`Person Names: ${peopleData.getNames().join(", ")}`);
+let collatedData = peopleData.collate<City>(cities, "city", "name");
+collatedData.forEach(c =>
+    console.log(`${c.name}, ${c.city}, ${c.population}`));
 
-let productData = new DataCollection<Product>(products);
-let firstProduct = productData.getItem(0);
-console.log(`First Product: ${firstProduct.name}, ${firstProduct.price}`);
-console.log(`Product Names: ${productData.getNames().join(", ")}`);
-
-let cityData = new DataCollection<City>(cities);
-console.log(`City Names: ${cityData.getNames().join(", ")}`);
+let empData = peopleData.collate<Employee>(employees, "name", "name");
+empData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.role}`));
