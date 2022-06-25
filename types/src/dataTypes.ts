@@ -7,7 +7,7 @@ export class Product {
 }
 
 export class City {
-    constructor(public name: string, public role: string) { }
+    constructor(public name: string, public population: number) { }
 }
 
 export class Employee {

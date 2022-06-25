@@ -16,9 +16,9 @@ class Product {
 }
 exports.Product = Product;
 class City {
-    constructor(name, role) {
+    constructor(name, population) {
         this.name = name;
-        this.role = role;
+        this.population = population;
     }
 }
 exports.City = City;

@@ -10,8 +10,8 @@ export declare class Product {
 }
 export declare class City {
     name: string;
-    role: string;
-    constructor(name: string, role: string);
+    population: number;
+    constructor(name: string, population: number);
 }
 export declare class Employee {
     name: string;
