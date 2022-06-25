@@ -4,10 +4,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
+    "module": "CommonJS"
     // "noImplicitAny": true,
-    "strictNullChecks": true,
+    // "strictNullChecks": true,
     //"noImplicitReturns": true
     // "suppressExcessPropertyErrors": true
-    "noUncheckedIndexedAccess": true
+    // "noUncheckedIndexedAccess": true
   }
 }

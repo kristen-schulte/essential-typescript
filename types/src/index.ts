@@ -1,28 +1,9 @@
-interface Product {
-    name: string;
-    price: number;
-}
+import { Person, Product } from "./dataTypes";
 
-class SportsProduct implements Product {
-    constructor(public name: string,
-        public category: string,
-        public price: number) { }
-}
+let people = [new Person("Bob Smith", "London"),
+new Person("Dora Peters", "New York")];
 
-class ProductGroup {
-    constructor(...initialProducts: [string, Product][]) {
-        initialProducts.forEach(p => this[p[0]] = p[1]);
-    }
+let products = [new Product("Running Shoes", 100),
+new Product("Hat", 25)];
 
-    [propertyName: string]: Product;
-}
-
-let group = new ProductGroup(["shoes", new SportsProduct("Shoes", "Running", 90.50)]);
-
-group.hat = new SportsProduct("Hat", "Skiing", 20);
-Object.keys(group).forEach(k => console.log(`Property Name: ${k}`));
-
-if (group.hat && group.boots) {
-    let total = group.hat.price + group.boots.price;
-    console.log(`Total: ${total}`);
-}
+[...people, ...products].forEach(item => console.log(`Item: ${item.name}`));
