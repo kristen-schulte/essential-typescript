@@ -1,44 +1,27 @@
-import { Person, Product } from "./dataTypes";
+import { City, Person, Product, Employee } from "./dataTypes";
+
+let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
 
 type shapeType = { name: string };
 
-interface Collection<T extends shapeType> {
-    add(...newItems: T[]): void;
-    get(name: string): T;
-    count: number;
-}
-
-abstract class ArrayCollection<T extends shapeType> implements Collection<T> {
-    protected items: T[] = [];
+class Collection<T extends shapeType> {
+    constructor(private items: T[] = []) {
+    }
 
     add(...newItems: T[]): void {
         this.items.push(...newItems);
     }
 
-    abstract get(searchTerm: string): T;
+    get(name: string): T {
+        return this.items.find(item => item.name === name);
+    }
 
     get count(): number {
         return this.items.length;
     }
 }
 
-class ProductCollection extends ArrayCollection<Product> {
-    get(searchTerm: string): Product {
-        return this.items.find(item => item.name === searchTerm);
-    }
-}
-
-class PersonCollection extends ArrayCollection<Person> {
-    get(searchTerm: string): Person {
-        return this.items.find(item => item.name === searchTerm || item.city === searchTerm);
-    }
-}
-
-let peopleCollection: Collection<Person> = new PersonCollection();
-peopleCollection.add(new Person("Bob Smith", "London"), new Person("Dora Peters", "New York"));
-// console.log(`Collection size: ${peopleCollection.count}`);
-
-let productCollection: Collection<Product> = new ProductCollection();
-productCollection.add(new Product("Running Shoes", 100), new Product("Hat", 25));
-
-[peopleCollection, productCollection].forEach(c => console.log(`Size: ${c.count}`));
+let productCollection: Collection<Product> = new Collection(products);
+console.log(`There are ${productCollection.count} products`);
+let p = productCollection.get("Hat");
+console.log(`Product: ${p.name}, ${p.price}`);
