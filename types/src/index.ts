@@ -5,11 +5,15 @@ let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
 let cities = [new City("London", 8136000), new City("Paris", 2141000)];
 let employees = [new Employee("Bob Smith", "Sales"), new Employee("Alice Jones", "Sales")];
 
-class DataCollection<T extends { name: string }> {
+class DataCollection<T> {
     protected items: T[] = [];
 
     constructor(initialItems: T[]) {
         this.items.push(...initialItems);
+    }
+
+    filter<V extends T>(predicate: (target) => target is V): V[] {
+        return this.items.filter(item => predicate(item)) as V[];
     }
 
     collate<U>(targetData: U[], itemProp: string, targetProp: string): (T & U)[] {
@@ -27,25 +31,38 @@ class DataCollection<T extends { name: string }> {
         this.items.push(newItem);
     }
 
-    getNames(): string[] {
-        return this.items.map(item => item.name);
-    }
+    // getNames(): string[] {
+    //     return this.items.map(item => item.name);
+    // }
 
     getItem(index: number): T {
         return this.items[index];
     }
 }
 
-class SearchableCollection extends DataCollection<Employee>{
-    constructor(initialItems: Employee[]) {
-        super(initialItems);
-    }
+// class SearchableCollection<T extends Employee | Person> extends DataCollection<T>{
+//     constructor(initialItems: T[]) {
+//         super(initialItems);
+//     }
 
-    find(searchTerm: string): Employee[] {
-        return this.items.filter(item => item.name === searchTerm || item.role === searchTerm);
-    }
+//     find(searchTerm: string): T[] {
+//         return this.items.filter(item => {
+//             if (item instanceof Employee) {
+//                 return item.name === searchTerm || item.role === searchTerm;
+//             } else if (item instanceof Person) {
+//                 return item.name === searchTerm || item.city === searchTerm;
+//             }
+//         });
+//     }
+// }
+
+let mixedData = new DataCollection<Person | Product>([...people, ...products]);
+function isProduct(target): target is Product {
+    return target instanceof Product;
 }
+const filteredProducts = mixedData.filter<Product>(isProduct);
+filteredProducts.forEach(p => console.log(`Product: ${p.name}, ${p.price}`));
 
-let employeeData = new SearchableCollection(employees);
-employeeData.find("Sales").forEach(e =>
-    console.log(`Employee ${e.name}, ${e.role}`));
+// let employeeData = new SearchableCollection<Employee>(employees);
+// employeeData.find("Sales").forEach(e =>
+//     console.log(`Employee ${e.name}, ${e.role}`));

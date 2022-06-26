@@ -10,6 +10,9 @@ class DataCollection {
         this.items = [];
         this.items.push(...initialItems);
     }
+    filter(predicate) {
+        return this.items.filter(item => predicate(item));
+    }
     collate(targetData, itemProp, targetProp) {
         let results = [];
         this.items.forEach(item => {
@@ -23,20 +26,33 @@ class DataCollection {
     add(newItem) {
         this.items.push(newItem);
     }
-    getNames() {
-        return this.items.map(item => item.name);
-    }
+    // getNames(): string[] {
+    //     return this.items.map(item => item.name);
+    // }
     getItem(index) {
         return this.items[index];
     }
 }
-class SearchableCollection extends DataCollection {
-    constructor(initialItems) {
-        super(initialItems);
-    }
-    find(searchTerm) {
-        return this.items.filter(item => item.name === searchTerm || item.role === searchTerm);
-    }
+// class SearchableCollection<T extends Employee | Person> extends DataCollection<T>{
+//     constructor(initialItems: T[]) {
+//         super(initialItems);
+//     }
+//     find(searchTerm: string): T[] {
+//         return this.items.filter(item => {
+//             if (item instanceof Employee) {
+//                 return item.name === searchTerm || item.role === searchTerm;
+//             } else if (item instanceof Person) {
+//                 return item.name === searchTerm || item.city === searchTerm;
+//             }
+//         });
+//     }
+// }
+let mixedData = new DataCollection([...people, ...products]);
+function isProduct(target) {
+    return target instanceof dataTypes_1.Product;
 }
-let employeeData = new SearchableCollection(employees);
-employeeData.find("Sales").forEach(e => console.log(`Employee ${e.name}, ${e.role}`));
+const filteredProducts = mixedData.filter(isProduct);
+filteredProducts.forEach(p => console.log(`Product: ${p.name}, ${p.price}`));
+// let employeeData = new SearchableCollection<Employee>(employees);
+// employeeData.find("Sales").forEach(e =>
+//     console.log(`Employee ${e.name}, ${e.role}`));
