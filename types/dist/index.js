@@ -30,8 +30,13 @@ class DataCollection {
         return this.items[index];
     }
 }
-let peopleData = new DataCollection(people);
-let collatedData = peopleData.collate(cities, "city", "name");
-collatedData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.population}`));
-let empData = peopleData.collate(employees, "name", "name");
-empData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.role}`));
+class SearchableCollection extends DataCollection {
+    constructor(initialItems) {
+        super(initialItems);
+    }
+    find(searchTerm) {
+        return this.items.filter(item => item.name === searchTerm || item.role === searchTerm);
+    }
+}
+let employeeData = new SearchableCollection(employees);
+employeeData.find("Sales").forEach(e => console.log(`Employee ${e.name}, ${e.role}`));
