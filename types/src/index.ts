@@ -1,13 +1,25 @@
 import { City, Person, Product, Employee } from "./dataTypes";
 
-type CustomMapped<T, K extends keyof T> = {
-    readonly [P in K]?: T[P]
-};
+type resultType<T extends boolean> = T extends true ? string : number;
 
-type BuiltInMapped<T, K extends keyof T> = Readonly<Partial<Pick<T, K>>>;
+class Collection<T> {
+    private items: T[];
 
-const p1: CustomMapped<Product, "name"> = { name: "Kayak" };
-const p2: BuiltInMapped<Product, "name" | "price"> = { name: "Lifejacket", price: 48.95 };
+    constructor(...initalItems: T[]) {
+        this.items = initalItems || [];
+    }
 
-console.log(`Custom mapped type: ${p1.name}`);
-console.log(`Built-in mapped type: ${p2.name}`);
+    total<P extends keyof T, U extends boolean>(propName: P, format: U): resultType<U> {
+        const totalValue = this.items.reduce((t, item) =>
+            t += Number(item[propName]), 0);
+        return format ? `$${totalValue.toFixed()}` : totalValue as any;
+    }
+}
+
+const data = new Collection<Product>(new Product("Kayak", 275), new Product("Lifejacket", 48.95));
+
+const firstVal: string = data.total("price", true);
+console.log(`Formatted value: ${firstVal}`);
+
+const secondVal: number = data.total("price", false);
+console.log(`Unformatted value: ${secondVal}`);
