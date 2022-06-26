@@ -13,3 +13,4 @@ cart.addProduct(hat, 2);
 
 sizeFormatter("Cart", cart.itemCount);
 costFormatter("Cart", cart.totalPrice);
+costFormatter("Cart", "100");
