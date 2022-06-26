@@ -1,15 +1,11 @@
 import { City, Person, Product, Employee } from "./dataTypes";
 
-type targetKeys<T> = T extends (infer U)[] ? keyof U : keyof T;
-
-function getValue<T, P extends targetKeys<T>>(data: T, propName: P): T[P] {
-    if (Array.isArray(data)) {
-        return data[0][propName];
-    } else {
-        return data[propName];
-    }
+function makeObject<T extends new (...args: any) => any>
+    (constructor: T, ...args: ConstructorParameters<T>): InstanceType<T> {
+    return new constructor(...args as any[]);
 }
 
-const products = [new Product("Kayak", 275), new Product("Lifejacket", 48.95)];
-console.log(`Array Value: ${getValue(products, "price")}`);
-console.log(`Single Total: ${getValue(products[0], "price")}`);
+let prod: Product = makeObject(Product, "Kayak", 275);
+let city: City = makeObject(City, "London", 8136000);
+
+[prod, city].forEach(item => console.log(`Name: ${item.name}`));
