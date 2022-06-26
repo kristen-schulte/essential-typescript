@@ -1,51 +1,41 @@
 import { Person, Product, City, Employee } from "./dataTypes";
 
-let people = [new Person("Bob Smith", "London"), new Person("Dora Peters", "New York")];
-let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
-let cities = [new City("London", 8136000), new City("Paris", 2141000)];
-let employees = [new Employee("Bob Smith", "Sales"), new Employee("Alice Jones", "Sales")];
+type shapeType = { name: string };
 
-class DataCollection<T> {
-    protected items: T[] = [];
+interface Collection<T extends shapeType> {
+    add(...newItems: T[]): void;
+    get(name: string): T;
+    count: number;
+}
 
-    constructor(initialItems: T[]) {
-        this.items.push(...initialItems);
+interface SearchableCollection<T extends shapeType> extends Collection<T> {
+    find(name: string): T | undefined;
+}
+
+interface ProductCollection extends Collection<Product> {
+    sumPrices(): number;
+}
+
+interface PeopleCollection<T extends Product | Employee> extends Collection<T> {
+    getNames(): string[];
+}
+
+class ArrayCollection<DataType extends shapeType> implements Collection<DataType> {
+    private items: DataType[] = [];
+
+    add(...newItems): void {
+        this.items.push(...newItems);
     }
 
-    filter<V extends T>(predicate: (target) => target is V): V[] {
-        return this.items.filter(item => predicate(item)) as V[];
+    get(name: string): DataType {
+        return this.items.find(item => item.name === name);
     }
 
-    static reverse<ArrayType>(items: ArrayType[]): ArrayType[] {
-        return items.reverse();
-    }
-
-    collate<U>(targetData: U[], itemProp: string, targetProp: string): (T & U)[] {
-        let results = [];
-        this.items.forEach(item => {
-            let match = targetData.find(d => d[targetProp] === item[itemProp]);
-            if (match !== undefined) {
-                results.push({ ...match, ...item });
-            }
-        });
-        return results;
-    }
-
-    add(newItem: T) {
-        this.items.push(newItem);
-    }
-
-    getItem(index: number): T {
-        return this.items[index];
+    get count(): number {
+        return this.items.length;
     }
 }
 
-let mixedData = new DataCollection<Person | Product>([...people, ...products]);
-function isProduct(target): target is Product {
-    return target instanceof Product;
-}
-const filteredProducts = mixedData.filter<Product>(isProduct);
-filteredProducts.forEach(p => console.log(`Product: ${p.name}, ${p.price}`));
-
-let reversedCities = DataCollection.reverse<City>(cities);
-reversedCities.forEach(c => console.log(`City: ${c.name}, ${c.population}`));
+let peopleCollection: Collection<Person> = new ArrayCollection<Person>();
+peopleCollection.add(new Person("Bob Smith", "London"), new Person("Dora Peters", "New York"));
+console.log(`Collection size: ${peopleCollection.count}`);
