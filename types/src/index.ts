@@ -1,25 +1,17 @@
 import { City, Person, Product, Employee } from "./dataTypes";
 
-type resultType<T extends boolean> = T extends true ? string : number;
+type Filter<T, U> = T extends U ? never : T;
 
-class Collection<T> {
-    private items: T[];
-
-    constructor(...initalItems: T[]) {
-        this.items = initalItems || [];
-    }
-
-    total<P extends keyof T, U extends boolean>(propName: P, format: U): resultType<U> {
-        const totalValue = this.items.reduce((t, item) =>
-            t += Number(item[propName]), 0);
-        return format ? `$${totalValue.toFixed()}` : totalValue as any;
-    }
+function FilterArray<T, U>(data: T[],
+    predicate: (item) => item is U): Filter<T, U>[] {
+    return data.filter(item => !predicate(item)) as any;
 }
 
-const data = new Collection<Product>(new Product("Kayak", 275), new Product("Lifejacket", 48.95));
+const dataArray = [new Product("Kayak", 275), new Person("Bob", "London"), new Product("Lifejacket", 27.5)];
 
-const firstVal: string = data.total("price", true);
-console.log(`Formatted value: ${firstVal}`);
+function isProduct(item: any): item is Product {
+    return item instanceof Product;
+}
 
-const secondVal: number = data.total("price", false);
-console.log(`Unformatted value: ${secondVal}`);
+const filteredData: Person[] = FilterArray(dataArray, isProduct);
+filteredData.forEach(item => console.log(`Person: ${item.name}`));

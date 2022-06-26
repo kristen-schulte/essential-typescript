@@ -1,17 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const dataTypes_1 = require("./dataTypes");
-class Collection {
-    constructor(...initalItems) {
-        this.items = initalItems || [];
-    }
-    total(propName, format) {
-        const totalValue = this.items.reduce((t, item) => t += Number(item[propName]), 0);
-        return format ? `$${totalValue.toFixed()}` : totalValue;
-    }
+function FilterArray(data, predicate) {
+    return data.filter(item => !predicate(item));
 }
-const data = new Collection(new dataTypes_1.Product("Kayak", 275), new dataTypes_1.Product("Lifejacket", 48.95));
-const firstVal = data.total("price", true);
-console.log(`Formatted value: ${firstVal}`);
-const secondVal = data.total("price", false);
-console.log(`Unformatted value: ${secondVal}`);
+const dataArray = [new dataTypes_1.Product("Kayak", 275), new dataTypes_1.Person("Bob", "London"), new dataTypes_1.Product("Lifejacket", 27.5)];
+function isProduct(item) {
+    return item instanceof dataTypes_1.Product;
+}
+const filteredData = FilterArray(dataArray, isProduct);
+filteredData.forEach(item => console.log(`Person: ${item.name}`));
