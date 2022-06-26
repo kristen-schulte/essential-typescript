@@ -1,25 +1,9 @@
-let person1 = {
-    id: "bsmith",
-    name: "Bob Smith",
-    city: "London",
-    company: "Acme Co",
-    dept: "Sales",
-    getContact(field) {
-        return typeof field === "string" ? "Alice" : 6512345643;
-    }
-};
-let person2 = {
-    id: "dpeters",
-    name: "Dora Peters",
-    city: "New York",
-    company: "Acme Co",
-    dept: "Development",
-    getContact(field) {
-        return typeof field === "string" ? "Alice" : 6512345643;
-    }
-};
-let typetest = person1.getContact;
-let stringParamTypeTest = person1.getContact("Alice");
-let numberParamTypeTest = person1.getContact(12);
-console.log(`Contact: ${person1.getContact("Alice")}`);
-console.log(`Contact: ${person1.getContact(12)}`);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const dataTypes_1 = require("./dataTypes");
+function makeObject(constructor, ...args) {
+    return new constructor(...args);
+}
+let prod = makeObject(dataTypes_1.Product, "Kayak", 275);
+let city = makeObject(dataTypes_1.City, "London", 8136000);
+[prod, city].forEach(item => console.log(`Name: ${item.name}`));
