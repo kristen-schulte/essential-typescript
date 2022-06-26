@@ -16,6 +16,10 @@ class DataCollection<T> {
         return this.items.filter(item => predicate(item)) as V[];
     }
 
+    static reverse<ArrayType>(items: ArrayType[]): ArrayType[] {
+        return items.reverse();
+    }
+
     collate<U>(targetData: U[], itemProp: string, targetProp: string): (T & U)[] {
         let results = [];
         this.items.forEach(item => {
@@ -31,30 +35,10 @@ class DataCollection<T> {
         this.items.push(newItem);
     }
 
-    // getNames(): string[] {
-    //     return this.items.map(item => item.name);
-    // }
-
     getItem(index: number): T {
         return this.items[index];
     }
 }
-
-// class SearchableCollection<T extends Employee | Person> extends DataCollection<T>{
-//     constructor(initialItems: T[]) {
-//         super(initialItems);
-//     }
-
-//     find(searchTerm: string): T[] {
-//         return this.items.filter(item => {
-//             if (item instanceof Employee) {
-//                 return item.name === searchTerm || item.role === searchTerm;
-//             } else if (item instanceof Person) {
-//                 return item.name === searchTerm || item.city === searchTerm;
-//             }
-//         });
-//     }
-// }
 
 let mixedData = new DataCollection<Person | Product>([...people, ...products]);
 function isProduct(target): target is Product {
@@ -63,6 +47,5 @@ function isProduct(target): target is Product {
 const filteredProducts = mixedData.filter<Product>(isProduct);
 filteredProducts.forEach(p => console.log(`Product: ${p.name}, ${p.price}`));
 
-// let employeeData = new SearchableCollection<Employee>(employees);
-// employeeData.find("Sales").forEach(e =>
-//     console.log(`Employee ${e.name}, ${e.role}`));
+let reversedCities = DataCollection.reverse<City>(cities);
+reversedCities.forEach(c => console.log(`City: ${c.name}, ${c.population}`));

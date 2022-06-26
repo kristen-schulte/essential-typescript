@@ -13,6 +13,9 @@ class DataCollection {
     filter(predicate) {
         return this.items.filter(item => predicate(item));
     }
+    static reverse(items) {
+        return items.reverse();
+    }
     collate(targetData, itemProp, targetProp) {
         let results = [];
         this.items.forEach(item => {
@@ -26,33 +29,15 @@ class DataCollection {
     add(newItem) {
         this.items.push(newItem);
     }
-    // getNames(): string[] {
-    //     return this.items.map(item => item.name);
-    // }
     getItem(index) {
         return this.items[index];
     }
 }
-// class SearchableCollection<T extends Employee | Person> extends DataCollection<T>{
-//     constructor(initialItems: T[]) {
-//         super(initialItems);
-//     }
-//     find(searchTerm: string): T[] {
-//         return this.items.filter(item => {
-//             if (item instanceof Employee) {
-//                 return item.name === searchTerm || item.role === searchTerm;
-//             } else if (item instanceof Person) {
-//                 return item.name === searchTerm || item.city === searchTerm;
-//             }
-//         });
-//     }
-// }
 let mixedData = new DataCollection([...people, ...products]);
 function isProduct(target) {
     return target instanceof dataTypes_1.Product;
 }
 const filteredProducts = mixedData.filter(isProduct);
 filteredProducts.forEach(p => console.log(`Product: ${p.name}, ${p.price}`));
-// let employeeData = new SearchableCollection<Employee>(employees);
-// employeeData.find("Sales").forEach(e =>
-//     console.log(`Employee ${e.name}, ${e.role}`));
+let reversedCities = DataCollection.reverse(cities);
+reversedCities.forEach(c => console.log(`City: ${c.name}, ${c.population}`));
