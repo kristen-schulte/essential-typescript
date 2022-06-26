@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-let p = { name: "Kayak", price: 275 };
-console.log(`Mapped type: ${p.name}, ${p.price}`);
-// let c: Mapped<City> = { name: "London", population: 8136000 };
-// console.log(`Mapped type: ${c.name}, ${c.population}`);
+const p1 = { name: "Kayak" };
+const p2 = { name: "Kayak" };
+const p3 = { name: "Kayak" };
+console.log(`Custom mapped type: ${p1.name}`);
+console.log(`Built-in mapped type (Pick): ${p2.name}`);
+console.log(`Built-in mapped type (Omit): ${p3.name}`);
