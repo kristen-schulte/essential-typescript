@@ -1,4 +1,4 @@
-import { Person, Product, City, Employee } from "./dataTypes";
+import { Person, Product } from "./dataTypes";
 
 type shapeType = { name: string };
 
@@ -8,34 +8,37 @@ interface Collection<T extends shapeType> {
     count: number;
 }
 
-interface SearchableCollection<T extends shapeType> extends Collection<T> {
-    find(name: string): T | undefined;
-}
+abstract class ArrayCollection<T extends shapeType> implements Collection<T> {
+    protected items: T[] = [];
 
-interface ProductCollection extends Collection<Product> {
-    sumPrices(): number;
-}
-
-interface PeopleCollection<T extends Product | Employee> extends Collection<T> {
-    getNames(): string[];
-}
-
-class ArrayCollection<DataType extends shapeType> implements Collection<DataType> {
-    private items: DataType[] = [];
-
-    add(...newItems): void {
+    add(...newItems: T[]): void {
         this.items.push(...newItems);
     }
 
-    get(name: string): DataType {
-        return this.items.find(item => item.name === name);
-    }
+    abstract get(searchTerm: string): T;
 
     get count(): number {
         return this.items.length;
     }
 }
 
-let peopleCollection: Collection<Person> = new ArrayCollection<Person>();
+class ProductCollection extends ArrayCollection<Product> {
+    get(searchTerm: string): Product {
+        return this.items.find(item => item.name === searchTerm);
+    }
+}
+
+class PersonCollection extends ArrayCollection<Person> {
+    get(searchTerm: string): Person {
+        return this.items.find(item => item.name === searchTerm || item.city === searchTerm);
+    }
+}
+
+let peopleCollection: Collection<Person> = new PersonCollection();
 peopleCollection.add(new Person("Bob Smith", "London"), new Person("Dora Peters", "New York"));
-console.log(`Collection size: ${peopleCollection.count}`);
+// console.log(`Collection size: ${peopleCollection.count}`);
+
+let productCollection: Collection<Product> = new ProductCollection();
+productCollection.add(new Product("Running Shoes", 100), new Product("Hat", 25));
+
+[peopleCollection, productCollection].forEach(c => console.log(`Size: ${c.count}`));

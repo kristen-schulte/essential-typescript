@@ -8,13 +8,23 @@ class ArrayCollection {
     add(...newItems) {
         this.items.push(...newItems);
     }
-    get(name) {
-        return this.items.find(item => item.name === name);
-    }
     get count() {
         return this.items.length;
     }
 }
-let peopleCollection = new ArrayCollection();
+class ProductCollection extends ArrayCollection {
+    get(searchTerm) {
+        return this.items.find(item => item.name === searchTerm);
+    }
+}
+class PersonCollection extends ArrayCollection {
+    get(searchTerm) {
+        return this.items.find(item => item.name === searchTerm || item.city === searchTerm);
+    }
+}
+let peopleCollection = new PersonCollection();
 peopleCollection.add(new dataTypes_1.Person("Bob Smith", "London"), new dataTypes_1.Person("Dora Peters", "New York"));
-console.log(`Collection size: ${peopleCollection.count}`);
+// console.log(`Collection size: ${peopleCollection.count}`);
+let productCollection = new ProductCollection();
+productCollection.add(new dataTypes_1.Product("Running Shoes", 100), new dataTypes_1.Product("Hat", 25));
+[peopleCollection, productCollection].forEach(c => console.log(`Size: ${c.count}`));
