@@ -44,4 +44,14 @@ export class HtmlDisplay {
     this.selectedCategory = selected === "All" ? undefined : selected;
     this.updateContent();
   }
+
+  addToOrder = (product: Product, quantity: number) => {
+    this.props.dataSource.order.addProduct(product, quantity);
+    this.updateContent();
+  };
+
+  selectCategory = (selected: string) => {
+    this.selectedCategory = selected === "All" ? undefined : selected;
+    this.updateContent();
+  };
 }
