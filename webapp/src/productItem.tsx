@@ -10,7 +10,7 @@ export class ProductItem {
   };
 
   getContent(): HTMLElement {
-    return (
+    const element = 
       <div className="card m-1 p-1 bg-light">
         <h4>
           {this.props.product.name}
@@ -36,7 +36,8 @@ export class ProductItem {
           </select>
         </div>
       </div>
-    );
+    ;
+    return element;
   }
 
   handleQuantityChange = (ev: Event): void => {

@@ -13,7 +13,7 @@ export class ProductList {
   };
 
   getContent(): HTMLElement {
-    return (
+    const element =
       <div className="container-fluid">
         <div className="row">
           <div className="col-3 p-2">
@@ -33,6 +33,8 @@ export class ProductList {
           </div>
         </div>
       </div>
-    );
+    ;
+
+    return element;
   }
 }

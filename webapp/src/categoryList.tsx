@@ -18,16 +18,19 @@ export class CategoryList {
   }
 
   getCategoryButton(cat?: string): HTMLElement {
-    const selected =
+    let selected =
       this.props.selectedCategory === undefined
         ? "All"
         : this.props.selectedCategory;
-    const btnClass = selected === cat ? "btn-primary" : "btn-secondary";
-    return (
+    let btnClass = selected === cat ? "btn-primary" : "btn-secondary";
+    const btn =
       <button
         className={`btn btn-block ${btnClass}`}
         onclick={() => this.props.callback(cat)}
-      ></button>
-    );
+      >
+        {cat}
+      </button>;
+
+      return btn;
   }
 }
