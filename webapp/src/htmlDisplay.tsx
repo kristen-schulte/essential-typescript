@@ -13,7 +13,7 @@ export class HtmlDisplay {
 
   props: {
     dataSource: AbstractDataSource;
-  };
+  }
 
   async getContent(): Promise<HTMLElement> {
     await this.updateContent();
@@ -23,6 +23,7 @@ export class HtmlDisplay {
   async updateContent() {
     const products = await this.props.dataSource.getProducts("id", this.selectedCategory);
     const categories = await this.props.dataSource.getCategories();
+    this.containerElem.innerHTML = "";
     const content = <div>
       <ProductList 
         products={products}
