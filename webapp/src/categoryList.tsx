@@ -18,7 +18,7 @@ export class CategoryList {
         const btnClass = selected === cat ? "btn-primary": "btn-secondary";
         return <button className={ `btn btn-block ${btnClass}`}
             onclick={() => this.props.callback(cat)}>
-                ${cat}
+                {cat}
             </button>
     }
 }

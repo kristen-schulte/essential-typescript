@@ -10,7 +10,7 @@ export function createElement(tag: any, props: Object, ...children: Object[]): H
 
     const elem = Object.assign(document.createElement(tag), props || {});
     children.forEach(child => Array.isArray(child)
-        ? children.forEach(c => addChild(elem, c)) : addChild(elem, child));
+        ? child.forEach(c => addChild(elem, c)) : addChild(elem, child));
     return elem;
 }
 
