@@ -15,7 +15,7 @@ export class CategoryList {
     selectCategory = new EventEmitter<string>();
 
     getBtnClass(category: string): string {
-        return "btn btn-block" +
+        return "btn btn-block " +
             (category === this.selected ? "btn-primary" : "btn-secondary");
     }
 }
