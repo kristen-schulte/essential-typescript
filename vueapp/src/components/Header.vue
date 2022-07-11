@@ -7,21 +7,19 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Order } from "@/data/entities";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Header",
-  props: {
-    order: {
-      type: Object as PropType<Order>,
-      required: true,
-    },
+  setup() {
+    return { store: useStore() };
   },
   computed: {
     displayText(): string {
-      const count = this.order.productCount;
+      const count = this.store.state.order.productCount;
       return count === 0
         ? "(No Selection)"
-        : `${count} product(s), $${this.order.total.toFixed(2)}`;
+        : `${count} product(s), $${this.store.state.order.total.toFixed(2)}`;
     },
   },
 });

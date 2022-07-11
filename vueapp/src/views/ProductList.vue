@@ -28,41 +28,25 @@ import { Product, Order } from "@/data/entities";
 import ProductItem from "@/components/ProductItem.vue";
 import CategoryList from "@/components/CategoryList.vue";
 import Header from "@/components/Header.vue";
+import { mapMutations, mapState, mapGetters } from "vuex";
+import { StoreState } from "@/store";
 
 export default defineComponent({
   name: "ProductList",
   components: { ProductItem, CategoryList, Header },
-  data() {
-    const products: Product[] = [];
-    [1, 2, 3, 4, 5].map((num) =>
-      products.push(
-        new Product(num, `Prod${num}`, `Product ${num}`, `Cat${num % 2}`, 100)
-      )
-    );
-    return {
-      products,
-      selectedCategory: "All",
-      order: new Order(),
-    };
-  },
   computed: {
-    categories(): string[] {
-      return ["All", ...new Set<string>(this.products.map((p) => p.category))];
-    },
-    filteredProducts(): Product[] {
-      return this.products.filter(
-        (p) =>
-          this.selectedCategory == "All" || this.selectedCategory === p.category
-      );
-    },
+    ...mapState<StoreState>({
+      selectedCategory: (state: StoreState) => state.selectedCategory,
+      products: (state: StoreState) => state.products,
+      order: (state: StoreState) => state.order,
+    }),
+    ...mapGetters(["filteredProducts", "categories"]),
   },
   methods: {
-    handleSelectCategory(category: string) {
-      this.selectedCategory = category;
-    },
-    handleAddToCart(data: { product: Product; quantity: number }) {
-      this.order.addProduct(data.product, data.quantity);
-    },
+    ...mapMutations({
+      handleSelectCategory: "selectCategory",
+      handleAddToCart: "addToOrder",
+    }),
   },
 });
 </script>

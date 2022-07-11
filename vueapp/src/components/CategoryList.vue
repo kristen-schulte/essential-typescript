@@ -32,7 +32,7 @@ export default defineComponent({
     getButtonClasses(category: string): string {
       const btnClass =
         this.selected === category ? "btn-primary" : "btn-secondary";
-      return `btn btn block ${btnClass}`;
+      return `btn btn-block ${btnClass}`;
     },
   },
 });
