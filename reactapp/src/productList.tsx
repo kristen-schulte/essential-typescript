@@ -50,11 +50,15 @@ export class ProductList extends Component<Props, State> {
   }
 
   getProducts(): Product[] {
-    return this.props.products.filter(
+    const filteredProds = this.props.products.filter(
       (p) =>
         this.state.selectedCategory === "All" ||
         p.category === this.state.selectedCategory
     );
+
+    // console.log(`Products: ${filteredProds.map((p) => p.name).join(", ")}`);
+
+    return filteredProds;
   }
 
   selectCategory = (cat: string) => {
