@@ -22,6 +22,8 @@ export class Order {
     constructor(initialLines?: OrderLine[]) {
         if (initialLines) {
             this.lines.push(...initialLines);
+        } else {
+            this.lines = [];
         }
     }
 
