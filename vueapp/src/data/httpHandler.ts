@@ -1,11 +1,9 @@
 import Axios from "axios";
 import { Product, Order } from "./entities";
 
-const baseUrl = "http://localhost:4600";
-
 const urls = {
-    products: `${baseUrl}/products`,
-    orders: `${baseUrl}/orders`
+    products: "/api/products",
+    orders: "/api/orders"
 }
 
 export class HttpHandler {
