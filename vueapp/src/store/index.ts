@@ -4,7 +4,8 @@ import { Product, Order } from '@/data/entities';
 export interface StoreState {
   products: Product[],
   order: Order,
-  selectedCategory: string
+  selectedCategory: string,
+  storeId: number
 }
 
 type ProductSelection = {
@@ -18,7 +19,8 @@ export default createStore<StoreState>({
       new Product(num, `Prod${num}`, `Product ${num}`, `Cat${num % 2}`, 450)
     ),
     order: new Order(),
-    selectedCategory: "All"
+    selectedCategory: "All",
+    storeId: -1
   },
   mutations: {
     selectCategory(currentState: StoreState, category: string) {
@@ -26,6 +28,15 @@ export default createStore<StoreState>({
     },
     addToOrder(currentState: StoreState, selection: ProductSelection) {
       currentState.order.addProduct(selection.product, selection.quantity);
+    },
+    addProducts(currentState: StoreState, products: Product[]) {
+      currentState.products = products;
+    },
+    setOrderId(currentState: StoreState, id: number) {
+      currentState.storeId = id;
+    },
+    resetOrder(currentState: StoreState) {
+      currentState.order = new Order();
     }
   },
   getters: {
@@ -37,6 +48,14 @@ export default createStore<StoreState>({
     }
   },
   actions: {
+    async loadProducts(context, task: () => Promise<Product[]>) {
+      const data = await task();
+      context.commit("addProducts", data);
+    },
+    async storeOrder(context, task: (order: Order) => Promise<number>) {
+      context.commit("setOrderId", await task(context.state.order));
+      context.commit("resetOrder");
+    }
   },
   modules: {
   }
