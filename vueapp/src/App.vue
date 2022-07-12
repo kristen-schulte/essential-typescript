@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import ProductList from "./views/ProductList.vue";
 import { HttpHandler } from "./data/httpHandler";
 import { useStore } from "vuex";
 
