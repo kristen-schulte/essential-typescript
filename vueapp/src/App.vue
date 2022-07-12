@@ -1,5 +1,5 @@
 <template>
-  <ProductList />
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -10,7 +10,6 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   name: "App",
-  components: { ProductList },
   setup() {
     const store = useStore();
     const handler = new HttpHandler();
